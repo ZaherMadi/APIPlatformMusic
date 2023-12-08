@@ -50,4 +50,25 @@ class Album
 
         return $this;
     }
+
+    
+    #[ORM\ManyToOne(targetEntity: Artist::class, inversedBy: "albums")]
+    private $artist;
+
+    
+    #[ORM\OneToMany(targetEntity: Song::class, mappedBy:"album")]
+    private $songs;
+
+
+    public function getArtist(): ?Artist
+    {
+        return $this->artist;
+    }
+
+    public function setArtist(?Artist $artist): self
+    {
+        $this->artist = $artist;
+
+        return $this;
+    }
 }

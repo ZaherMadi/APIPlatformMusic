@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Album; //au cas ou
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\SongRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -46,6 +47,24 @@ class Song
     public function setLength(int $length): static
     {
         $this->length = $length;
+
+        return $this;
+    }
+
+    
+    #[ORM\ManyToOne(targetEntity: App\Entity\Album::class, inversedBy:"songs")]
+    private $album;
+
+    // ...
+
+    public function getAlbum(): ?Album
+    {
+        return $this->album;
+    }
+
+    public function setAlbum(?Album $album): self
+    {
+        $this->album = $album;
 
         return $this;
     }

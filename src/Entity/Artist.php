@@ -4,8 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ArtistRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
+#[ApiResource]
 class Artist
 {
     #[ORM\Id]
@@ -46,5 +50,25 @@ class Artist
         $this->style = $style;
 
         return $this;
+    }
+
+    
+    #[ORM\OneToMany(targetEntity: Album::class, mappedBy: "artist")]
+     private $albums;
+
+    public function __construct()
+     {
+         $this->albums = new ArrayCollection();
+     }
+
+    
+    
+    /**
+     * @return Collection|Album[] 
+     */
+    
+    public function getAlbums(): Collection
+    {
+        return $this->albums;
     }
 }
