@@ -6,9 +6,14 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AlbumRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups'=> ['album:read']]
+)]
 class Album
 {
     #[ORM\Id]
@@ -53,6 +58,7 @@ class Album
 
     
     #[ORM\ManyToOne(targetEntity: Artist::class, inversedBy: "albums")]
+    #[Groups(['album:read'])]
     private $artist;
 
     
@@ -71,4 +77,10 @@ class Album
 
         return $this;
     }
+
+
+
+
+
+
 }

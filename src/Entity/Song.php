@@ -52,7 +52,7 @@ class Song
     }
 
     
-    #[ORM\ManyToOne(targetEntity: App\Entity\Album::class, inversedBy:"songs")]
+    #[ORM\ManyToOne(targetEntity: Album::class, inversedBy:"songs")]
     private $album;
 
     // ...
