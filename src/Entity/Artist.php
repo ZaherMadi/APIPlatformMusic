@@ -72,6 +72,8 @@ class Artist
     public function getAlbums(): Collection
     {
         return $this->albums;
+        
     }
+
 
 }

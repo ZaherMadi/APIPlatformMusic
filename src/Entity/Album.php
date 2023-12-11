@@ -12,7 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
 #[ApiResource(
-    normalizationContext: ['groups'=> ['album:read']]
+    // normalizationContext: ['groups'=> ['album:read']]
+
 )]
 class Album
 {
@@ -22,6 +23,7 @@ class Album
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['album:read'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
