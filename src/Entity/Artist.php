@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\DTO;
+use App\Entity\Dto\DetailsAlbum;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 #[ApiResource]
@@ -54,26 +56,36 @@ class Artist
         return $this;
     }
 
-    
+
     #[ORM\OneToMany(targetEntity: Album::class, mappedBy: "artist")]
-     private $albums;
+    private $albums;
 
     public function __construct()
-     {
-         $this->albums = new ArrayCollection();
-     }
-
-    
-    
-    /**
-     * @return Collection|Album[] 
-     */
-    
-    public function getAlbums(): Collection
     {
-        return $this->albums;
-        
+        $this->albums = new ArrayCollection();
     }
 
 
+
+    /**
+     * @return Collection|Album[] 
+     */
+    public function getAlbums(): Collection
+    {
+
+        return $this->albums;   
+    }
+
+     public function getdetails(): array
+     {
+         return $this->albums->map(function ($album) {
+             // Assuming AlbumDto takes parameters in its constructor to set its properties
+             return new DetailsAlbum(
+                 $album->getId(),
+                 $album->getTitle(),
+                 $album->getDate() // Make sure the date format or conversion is handled as needed
+                 // Add other properties as required
+             );
+         })->toArray();
+     }
 }

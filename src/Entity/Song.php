@@ -6,6 +6,7 @@ use App\Entity\Album; //au cas ou
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\SongRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Dto\ArtistDto;
 
 #[ORM\Entity(repositoryClass: SongRepository::class)]
 #[ApiResource]
@@ -57,15 +58,13 @@ class Song
 
     // ...
 
-    public function getAlbum(): ?Album
-    {
-        return $this->album;
-    }
-
     public function setAlbum(?Album $album): self
     {
         $this->album = $album;
 
         return $this;
     }
+
+
+    
 }
