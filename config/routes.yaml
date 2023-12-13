@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+custom_endpoint:
+    path: /artist/{artistId}/album/{albumId}/song/{songId}
+    controller: App\Controller\CustomController::customAction
+    methods: [GET]
